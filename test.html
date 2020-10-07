@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.0.0/video.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.min.js" integrity="sha512-mF+XuiEvJq707N/B9Fm/fI2wgMcWuFLsoztIp0UzEKgHCZgczbYpO2+Vq2TEi0LmE4crVj2r8AYru7X5QjVotw==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js" integrity="sha512-wKJflLtBLm17q2xfXgyi1zHcd5v61unuxlu5rr8KWo7aCYl/lBT3Tg+gthkVDVIY+NUFwylUW/3w5kmFao18Hg==" crossorigin="anonymous"></script>
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+  <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+</head>
+  <style>
+    .wrap-test {
+      margin: auto;
+      width: 560px;
+	  }
+    #example-video {
+      margin: auto;
+    }
+    .video-title {
+      font-size: 18px;
+  	}
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 560px;
+	  }
+    #myAd {
+      position: absolute;
+      margin-left: -45px;
+      left: 36%;
+      top: 30px;
+	}
+  </style>
+<body>
+  <video id="example-video" width="560" height="315" class="video-js vjs-default-skin" controls>
+  <source
+    src="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    type="audio/x-mpegurl">
+  </video>
+  <div class="wrap-test">
+    <div id="display"></div>
+    <div class="video-title">測試影片</div>
+    <img id="myAd" src="pic.jpg" width="450" height="260" />
+    <div class="button-container">
+      <button id="save-videos" onclick="saveVids()">SAVE</button>
+      <button onclick="home()">HOME</button>
+    </div>
+  </div>
+
+  <script>
+	var player = videojs('example-video');
+  player.play();
+	
+	player.on('pause', function(event) {
+        $('#myAd').show();
+	});
+	player.on('play', function(event) {
+        $('#myAd').hide();
+  });
+  
+  let status;
+  let videoId;
+  let cookieValue = document.cookie;
+  let arr = cookieValue.replace(/=/g, '').split(';');
+  
+
+
+  checkButton();
+  function checkButton() {
+		let len = arr.length;
+
+    if (arr.includes("testVideo"))
+    {
+      $('#save-videos').html('CANCEL');
+      status = 'cancel';
+    }
+    else{
+      $('#save-videos').html('SAVE');
+      status = 'save';
+    }
+	}
+
+
+  function saveVids() {
+	  if (status === 'save') {
+		  document.cookie = 'testVideo';
+		  $('#save-videos').html('CANCEL');
+		  status = 'cancel';
+	  } else if (status === 'cancel') {
+		  document.cookie = 'testVideo=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+		  $('#save-videos').html('SAVE');
+		  status = 'save';
+    }
+  }
+
+  function home() {location.href = "1004-project.html";}
+
+</script>
+</body>
+</html>
