@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Youtube Videos</title>
+	<style>
+	  @media screen and (min-width: 1900px) {
+		#youtube-videos {
+		  display: grid;
+		  grid-template-columns: repeat(5, 1fr);
+		  width: 90%;
+		}
+	  }
+	  @media screen and (min-width: 1700px) and (max-width: 1900px) {
+	    #youtube-videos {
+		  display: grid;
+		  grid-template-columns: repeat(5, 1fr);
+		  width: 100%;
+		}
+	  }
+	  @media screen and (min-width: 414px) and (max-width: 1700px) {
+		#youtube-videos {
+		  display: grid;
+		  grid-template-columns: repeat(4, 1fr);
+		  width: 90%;
+		}
+	  }
+	 
+	  @media (max-width: 414px) {
+		#youtube-videos {
+		  width: 90%;
+		}
+		body {
+		  background: red;
+		}
+		.video-title {
+		  color: red;
+		  font-size: 1000px;
+		}
+	  }
+	  body {
+	    background: #f4f4f4;
+		font-family: "Arial", sans-serif;
+		font-size: 14px;
+		color: #666;
+	  }
+	  #wrap {
+		margin: auto;
+		overflow: auto;
+		background: #fff;
+		padding: 15px;
+	  }
+	  .title {
+		margin: 15px 0 30px 0;
+	    font-size: 40px;
+	  }
+	  .wrap-youtube-videos {
+	    display: flex;
+		justify-content: center;
+		align-items: center;
+	  }
+	  .container {
+		width: 320px;
+	  }
+	  .video-title {
+		font-size: 18px;
+	  }
+	  button {
+		height: 50px;
+		width: 50px;
+		border-color: #666; 
+		border-style: solid;
+		border-radius: 5px;
+		font-size: 25px;
+		color: #666;
+	  }
+	  .buttons {
+	    text-align: center;
+	  }
+	  .page-numbers:focus {
+		color: #f4f4f4;
+		background-color: #666;
+	  }
+	  button:active {
+		color: #f4f4f4;
+		background-color: #666;
+	  }
+	  .video-length {
+	    width: 40px;
+		position: relative;
+		top: -100px;
+		right: -270px;
+		color: white;
+		background-color: black;
+	  }
+	  .save-icon {
+	    position: relative;
+		top: -90px;
+		left: 27px;
+		color: black;
+		opacity: 0.8;
+		font-size: 30px;
+	  }
+	  .save-icon:hover {
+		color: #FF5151;
+	  }
+	  #saved-page {
+		position: absolute;
+		left: 0px;
+		height: 350px;
+		width: 100%;
+		padding: 15px;
+		margin: auto;
+		overflow: auto;
+		background-color: lemonchiffon;
+	  }
+	  #popup-overlay {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background-color:rgba(0,0,0,0.6);
+		height: 100%;
+		width: 100%;
+	  }
+	  #popup-outer {
+	    border-radius: 5px;
+	    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.5);
+		height: 80%;
+		width: 60%;
+		background-color: white;
+		position:absolute;
+		top:50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	  }
+	  #popup-videos {
+		position:absolute;
+		top:50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1;
+	  }
+	  #myAd {
+		position: absolute;
+		top:50%;
+		left: 50%;
+		transform: translate(-50%, -75%);
+		z-index: 2;
+	  }
+	  #cancel-popup {
+		position: absolute;
+		top:10%;
+		left: 80%;
+		z-index: 4;
+		transform: translate(-50%, -50%);
+	  }
+	  #show-button {
+		position: absolute;
+		left: 40%;
+	  }
+	  img {
+		width: 320;
+		height: 180;
+	  }
+	  
+	
+	</style>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.0.0/video.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.min.js" integrity="sha512-mF+XuiEvJq707N/B9Fm/fI2wgMcWuFLsoztIp0UzEKgHCZgczbYpO2+Vq2TEi0LmE4crVj2r8AYru7X5QjVotw==" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js" integrity="sha512-wKJflLtBLm17q2xfXgyi1zHcd5v61unuxlu5rr8KWo7aCYl/lBT3Tg+gthkVDVIY+NUFwylUW/3w5kmFao18Hg==" crossorigin="anonymous"></script>
+	<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+	<link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+	<script src="https://kit.fontawesome.com/996973c893.js"></script>
+	<script src="1004.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="title">Youtube Videos</div>
+	  <div class="wrap-youtube-videos">
+	    <div id="youtube-videos"></div>
+	  </div>
+	  <div class="buttons">
+		<button class="prev">&#x25C4;</button> 
+		<button class="page-numbers">1</button>
+		<button class="page-numbers">2</button>
+		<button class="page-numbers">3</button>
+		<button class="page-numbers">4</button>
+		<button class="page-numbers">5</button>
+		<button class="page-numbers">6</button>
+		<button class="page-numbers">7</button>
+		<button class="page-numbers">8</button>
+		<button class="page-numbers">9</button>
+		<button class="next">&#x25BA;</button> 
+	  </div>
+	  
+	</div>
+	<div id="saved-page">
+		<div class="title">Favorites</div>
+		<table>
+			<tr id="saved-videos"></tr>	
+		</table>
+	</div>
+	<div id="popup-overlay">
+		<i id="cancel-popup" class="far fa-times-circle" style="font-size:48px;color:black"></i>
+		<div id="popup-outer">
+			<img id="myAd" src="pic.jpg" width="450" height="260" />
+			<div id="popup-videos"></div>
+		</div>
+	</div>
+  </body>
+</html>
